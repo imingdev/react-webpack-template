@@ -1,0 +1,57 @@
+{
+  "name": "react-webpack-template",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node_modules/.bin/webpack-dev-server --inline --config build/webpack.dev.config.js",
+    "build": "cross-env NODE_ENV=production node build/build.js"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "babel-preset-react-app": "^10.0.0",
+    "consola": "^2.15.3",
+    "copy-webpack-plugin": "^4.6.0",
+    "cross-env": "^7.0.2",
+    "css-loader": "^4.2.0",
+    "dotenv-webpack": "^2.0.0",
+    "eslint": "^7.6.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.5",
+    "file-loader": "^6.0.0",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "html-webpack-plugin": "^4.3.0",
+    "ip": "^1.1.5",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-notifier": "^7.0.2",
+    "node-sass": "^4.14.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "ora": "^4.0.5",
+    "portfinder": "^1.0.28",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "rimraf": "^3.0.2",
+    "sass-loader": "^9.0.2",
+    "style-loader": "^1.2.1",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.1.1",
+    "webpackbar": "^4.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
