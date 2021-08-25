@@ -17,12 +17,12 @@ const config = require('./config');
 const devWebpackConfig = merge(baseWebpackConfig, {
   mode: 'development',
   module: {
-    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
+    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true }),
   },
   // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,
   output: {
-    publicPath: config.dev.assetsPublicPath
+    publicPath: config.dev.assetsPublicPath,
   },
 
   // these devServer options should be customized in /config/index.js
@@ -43,15 +43,15 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     proxy: config.dev.proxyTable,
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
-      poll: config.dev.poll
-    }
+      poll: config.dev.poll,
+    },
   },
   plugins: [
     new DotEnvWebpackPlugin({
       path: '.env.development',
       silent: true, // hide any errors
       systemvars: true,
-      defaults: '.env'
+      defaults: '.env',
     }),
     new webpack.HotModuleReplacementPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
@@ -59,15 +59,15 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       filename: 'index.html',
       template: 'index.ejs',
       inject: true,
-      favicon: 'favicon.ico'
+      favicon: 'favicon.ico',
     }),
     // copy custom static assets
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, '../static'),
       to: config.dev.assetsSubDirectory,
-      ignore: ['.*']
-    }])
-  ]
+      ignore: ['.*'],
+    }]),
+  ],
 });
 
 module.exports = new Promise((resolve, reject) => {
@@ -87,16 +87,16 @@ module.exports = new Promise((resolve, reject) => {
           messages: [
             'App running at:',
             `- Local:   http://localhost:${port}`,
-            `- Network: http://${ip.address()}:${port}`
+            `- Network: http://${ip.address()}:${port}`,
           ],
           notes: [
             'Note that the development build is not optimized.',
-            'To create a production build, run npm run build.'
-          ]
+            'To create a production build, run npm run build.',
+          ],
         },
         onErrors: config.dev.notifyOnErrors
           ? utils.createNotifierCallback()
-          : undefined
+          : undefined,
       }));
 
       resolve(devWebpackConfig);

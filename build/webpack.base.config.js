@@ -14,44 +14,44 @@ const createLintingRule = () => ({
   enforce: 'pre',
   include: [resolve('src')],
   options: {
+    // eslint-disable-next-line global-require
     formatter: require('eslint-friendly-formatter'),
-    emitWarning: !config.dev.showEslintErrorsInOverlay
-  }
+    emitWarning: !config.dev.showEslintErrorsInOverlay,
+  },
 });
 
 module.exports = {
   context: resolve('/'),
   entry: {
-    app: './src/main.jsx'
+    app: './src/main.jsx',
   },
   output: {
     path: resolve('dist'),
-    filename: utils.assetsFilenames.app
+    filename: utils.assetsFilenames.app,
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.vue'],
     alias: {
-      '@': resolve('src')
-    }
+      '@': resolve('src'),
+    },
   },
   module: {
     rules: [{
       test: /\.(jsx?)$/,
       loader: 'babel-loader',
-      include: [resolve('src')],
       options: {
-        cacheDirectory: config.cacheDirectory('babel-loader')
-      }
+        cacheDirectory: config.cacheDirectory('babel-loader'),
+      },
     },
     ...(config.dev.useEslint ? [createLintingRule()] : []),
-    ...utils.assetsLoaders
-    ]
+    ...utils.assetsLoaders,
+    ],
   },
   plugins: [
-    new WebpackBarPlugin()
+    new WebpackBarPlugin(),
   ],
   performance: {
-    hints: false
+    hints: false,
   },
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
@@ -63,6 +63,6 @@ module.exports = {
     fs: 'empty',
     net: 'empty',
     tls: 'empty',
-    child_process: 'empty'
-  }
+    child_process: 'empty',
+  },
 };

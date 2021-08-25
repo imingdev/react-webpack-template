@@ -23,8 +23,8 @@ module.exports = merge(webpackBaseConfig, {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
       extract: true,
-      usePostCSS: true
-    })
+      usePostCSS: true,
+    }),
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {
@@ -32,19 +32,19 @@ module.exports = merge(webpackBaseConfig, {
     publicPath: config.build.assetsPublicPath,
     filename: utils.assetsFilenames.app,
     chunkFilename: utils.assetsFilenames.chunk,
-    crossOriginLoading: 'anonymous'
+    crossOriginLoading: 'anonymous',
   },
   plugins: [
     new DotEnvWebpackPlugin({
       path: `.env.${mode}`,
       silent: true, // hide any errors
       systemvars: true,
-      defaults: '.env'
+      defaults: '.env',
     }),
     new MiniCssExtractPlugin({
       filename: utils.assetsFilenames.css,
       chunkFilename: utils.assetsFilenames.css,
-      ignoreOrder: true
+      ignoreOrder: true,
     }),
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
@@ -62,15 +62,15 @@ module.exports = merge(webpackBaseConfig, {
         minifyJS: true,
         minifyCSS: true,
         minifyURLs: true,
-        favicon: 'favicon.ico'
-      }
+        favicon: 'favicon.ico',
+      },
     }),
     // copy custom static assets
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, '../static'),
       to: config.dev.assetsSubDirectory,
-      ignore: ['.*']
-    }])
+      ignore: ['.*'],
+    }]),
   ],
   optimization: {
     splitChunks: {
@@ -78,14 +78,14 @@ module.exports = merge(webpackBaseConfig, {
         vendor: {
           name: 'vendor',
           chunks: 'initial',
-          test: ({ resource }) => resource && /\.js$/.test(resource) && resource.indexOf(resolve('node_modules')) === 0
+          test: ({ resource }) => resource && /\.js$/.test(resource) && resource.indexOf(resolve('node_modules')) === 0,
         },
         async: {
           name: 'async',
           chunks: 'async',
-          minChunks: 3
-        }
-      }
+          minChunks: 3,
+        },
+      },
     },
     runtimeChunk: true,
     minimizer: [
@@ -93,24 +93,24 @@ module.exports = merge(webpackBaseConfig, {
         cssProcessorOptions: config.build.productionSourceMap
           ? {
             safe: true,
-            map: { inline: false }
+            map: { inline: false },
           }
-          : { safe: true }
+          : { safe: true },
       }),
       new UglifyJsPlugin({
         cache: config.cacheDirectory('uglifyjs'),
         uglifyOptions: {
           output: {
-            comments: false
+            comments: false,
           },
           compress: {
             drop_debugger: true,
-            drop_console: true
-          }
+            drop_console: true,
+          },
         },
         sourceMap: false,
-        parallel: true
-      })
-    ]
-  }
+        parallel: true,
+      }),
+    ],
+  },
 });

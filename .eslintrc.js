@@ -4,10 +4,10 @@ module.exports = {
   parser: 'babel-eslint',
   env: {
     browser: true,
-    es6: true
+    es6: true,
   },
   extends: [
-    'airbnb'
+    'airbnb',
   ],
   rules: {
     'linebreak-style': [0, 'error', 'windows'],
@@ -29,7 +29,7 @@ module.exports = {
     'import/extensions': 0,
     'no-unused-vars': 1,
     'arrow-body-style': 0,
-    'comma-dangle': 0,
-    'no-tabs': 0
-  }
+    'import/no-extraneous-dependencies': 0,
+    'no-tabs': 0,
+  },
 };

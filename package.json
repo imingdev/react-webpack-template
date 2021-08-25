@@ -2,15 +2,16 @@
   "name": "react-webpack-template",
   "version": "0.0.0",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development node_modules/.bin/webpack-dev-server --inline --config build/webpack.dev.config.js",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --config build/webpack.dev.config.js",
     "build": "cross-env NODE_ENV=production node build/build.js"
   },
   "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
+    "@rextjs/babel-plugin-auto-css-modules": "^1.0.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-preset-react-app": "^10.0.0",
@@ -34,7 +35,6 @@
     "node-notifier": "^7.0.2",
     "node-sass": "^4.14.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "ora": "^4.0.5",
     "portfinder": "^1.0.28",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",

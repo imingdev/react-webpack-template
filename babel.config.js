@@ -1,6 +1,5 @@
 module.exports = {
   presets: ['react-app'],
-  plugins: [
-    './build/babel-plugin/auto-css-modules'
-  ]
+  plugins: ['@rextjs/babel-plugin-auto-css-modules'],
+  compact: false
 };

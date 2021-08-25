@@ -39,7 +39,7 @@ module.exports = {
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
 
-    cssSourceMap: true
+    cssSourceMap: true,
   },
 
   build: {
@@ -73,6 +73,6 @@ module.exports = {
     bundleAnalyzerReport: process.env.npm_config_report,
     // 打包成zip
     // `npm run build --zip`
-    packagedIntoZip: process.env.npm_config_zip
-  }
+    packagedIntoZip: process.env.npm_config_zip,
+  },
 };

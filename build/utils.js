@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const config = require('./config');
 const packageConfig = require('../package.json');
 
-exports.assetsPath = function (_path) {
+exports.assetsPath = (_path) => {
   const assetsSubDirectory = config.isDevelopment
     ? config.dev.assetsSubDirectory
     : config.build.assetsSubDirectory;
@@ -17,7 +17,8 @@ exports.assetsFilenames = {
   css: config.isDevelopment ? '[name].css' : exports.assetsPath('css/[contenthash:8].css'),
   img: config.isDevelopment ? '[path][name].[ext]' : exports.assetsPath('images/[contenthash:8].[ext]'),
   font: config.isDevelopment ? '[path][name].[ext]' : exports.assetsPath('fonts/[contenthash:8].[ext]'),
-  video: config.isDevelopment ? '[path][name].[ext]' : exports.assetsPath('videos/[contenthash:8].[ext]')
+  video: config.isDevelopment ? '[path][name].[ext]' : exports.assetsPath('videos/[contenthash:8].[ext]'),
+  cssModules: config.isDevelopment ? '[name]__[local]--[hash:base64:5]' : exports.assetsPath('_[hash:base64:10]'),
 };
 
 exports.assetsLoaders = [{
@@ -25,25 +26,25 @@ exports.assetsLoaders = [{
   loader: 'url-loader',
   options: {
     limit: 1000,
-    name: exports.assetsFilenames.img
-  }
+    name: exports.assetsFilenames.img,
+  },
 }, {
   test: /\.(webm|mp4|ogv)$/i,
   loader: 'url-loader',
   options: {
     limit: 1000,
-    name: exports.assetsFilenames.video
-  }
+    name: exports.assetsFilenames.video,
+  },
 }, {
   test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/i,
   loader: 'url-loader',
   options: {
     limit: 1000,
-    name: exports.assetsFilenames.font
-  }
+    name: exports.assetsFilenames.font,
+  },
 }];
 
-exports.cssLoaders = function (opt) {
+exports.cssLoaders = (opt) => {
   const options = { ...opt || {} };
 
   const cssLoader = {
@@ -51,30 +52,30 @@ exports.cssLoaders = function (opt) {
     options: {
       modules: {
         auto: options.useCssModules ? undefined : /\.module\.\w+$/i,
-        localIdentName: config.isDevelopment ? '[name]__[local]--[hash:base64:5]' : '_[hash:base64:10]'
+        localIdentName: exports.assetsFilenames.cssModules,
       },
-      sourceMap: options.sourceMap
-    }
+      sourceMap: options.sourceMap,
+    },
   };
 
   const postcssLoader = {
     loader: 'postcss-loader',
     options: {
-      sourceMap: options.sourceMap
-    }
+      sourceMap: options.sourceMap,
+    },
   };
 
   // generate loader string to be used with extract text plugin
-  function generateLoaders(loader, loaderOptions) {
+  const generateLoaders = (loader, loaderOptions) => {
     const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader];
 
     if (loader) {
-      const opts = {
-        sourceMap: options.sourceMap
-      };
       loaders.push({
         loader: `${loader}-loader`,
-        options: { ...loaderOptions, ...opts }
+        options: {
+          ...loaderOptions,
+          sourceMap: options.sourceMap,
+        },
       });
     }
 
@@ -84,7 +85,7 @@ exports.cssLoaders = function (opt) {
       return [MiniCssExtractPlugin.loader].concat(loaders);
     }
     return ['style-loader'].concat(loaders);
-  }
+  };
 
   return {
     css: generateLoaders(),
@@ -93,27 +94,27 @@ exports.cssLoaders = function (opt) {
     sass: generateLoaders('sass', { indentedSyntax: true }),
     scss: generateLoaders('sass'),
     stylus: generateLoaders('stylus'),
-    styl: generateLoaders('stylus')
+    styl: generateLoaders('stylus'),
   };
 };
 
-// Generate loaders for standalone style files (outside of .vue)
-exports.styleLoaders = function (options) {
+exports.styleLoaders = (options = {}) => {
   const output = [];
   const normalLoaders = exports.cssLoaders(options);
   const cssModulesLoaders = exports.cssLoaders({ ...options || {}, useCssModules: true });
 
+  // eslint-disable-next-line guard-for-in,no-restricted-syntax
   for (const extension in normalLoaders) {
     const test = new RegExp(`\\.${extension}$`);
     output.push({
       oneOf: [{
         test,
-        resourceQuery: /css_modules/,
-        use: cssModulesLoaders[extension]
+        resourceQuery: /modules/,
+        use: cssModulesLoaders[extension],
       }, {
         test,
-        use: normalLoaders[extension]
-      }]
+        use: normalLoaders[extension],
+      }],
     });
   }
 
@@ -121,6 +122,7 @@ exports.styleLoaders = function (options) {
 };
 
 exports.createNotifierCallback = () => {
+  // eslint-disable-next-line global-require,import/no-extraneous-dependencies
   const notifier = require('node-notifier');
 
   return (severity, errors) => {
@@ -132,7 +134,7 @@ exports.createNotifierCallback = () => {
     notifier.notify({
       title: packageConfig.name,
       message: `${severity}: ${error.name}`,
-      subtitle: filename || ''
+      subtitle: filename || '',
     });
   };
 };
