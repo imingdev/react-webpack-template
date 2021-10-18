@@ -18,7 +18,7 @@ exports.assetsFilenames = {
   img: config.isDevelopment ? '[path][name].[ext]' : exports.assetsPath('images/[contenthash:8].[ext]'),
   font: config.isDevelopment ? '[path][name].[ext]' : exports.assetsPath('fonts/[contenthash:8].[ext]'),
   video: config.isDevelopment ? '[path][name].[ext]' : exports.assetsPath('videos/[contenthash:8].[ext]'),
-  cssModules: config.isDevelopment ? '[name]__[local]--[hash:base64:5]' : exports.assetsPath('_[hash:base64:10]'),
+  cssModules: config.isDevelopment ? '[name]__[local]--[hash:base64:5]' : '_[hash:base64:10]',
 };
 
 exports.assetsLoaders = [{
