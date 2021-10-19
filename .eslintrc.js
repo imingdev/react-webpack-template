@@ -27,9 +27,6 @@ module.exports = {
     'max-len': 0,
     'jsx-a11y/alt-text': 0,
     'import/extensions': 0,
-    'no-unused-vars': 1,
-    'arrow-body-style': 0,
-    'import/no-extraneous-dependencies': 0,
-    'no-tabs': 0,
+    'no-debugger': 1,
   },
 };
