@@ -51,6 +51,7 @@ module.exports = merge(webpackBaseConfig, {
       filename: config.build.index,
       template: 'index.ejs',
       inject: true,
+      favicon: 'favicon.ico',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -62,7 +63,6 @@ module.exports = merge(webpackBaseConfig, {
         minifyJS: true,
         minifyCSS: true,
         minifyURLs: true,
-        favicon: 'favicon.ico',
       },
     }),
     // copy custom static assets
