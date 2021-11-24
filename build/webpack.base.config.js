@@ -8,17 +8,15 @@ const config = require('./config');
 
 const resolve = (dir) => path.join(__dirname, '..', dir);
 
-const createLintingRule = () => ({
-  test: /\.(jsx?)$/,
-  loader: 'eslint-loader',
-  enforce: 'pre',
-  include: [resolve('src')],
-  options: {
-    // eslint-disable-next-line global-require
+const createEslintRule = () => {
+  const ESLintPlugin = require('eslint-webpack-plugin');
+
+  return new ESLintPlugin({
+    extensions: ['js', 'jsx'],
     formatter: require('eslint-friendly-formatter'),
     emitWarning: !config.dev.showEslintErrorsInOverlay,
-  },
-});
+  });
+};
 
 module.exports = {
   context: resolve('/'),
@@ -43,13 +41,13 @@ module.exports = {
         cacheDirectory: config.cacheDirectory('babel-loader'),
       },
     },
-    ...(config.dev.useEslint ? [createLintingRule()] : []),
     ...utils.assetsLoaders,
     ],
   },
   plugins: [
     new WebpackBarPlugin(),
-  ],
+	config.dev.useEslint && createEslintRule(),
+  ].filter(Boolean),
   performance: {
     hints: false,
   },
