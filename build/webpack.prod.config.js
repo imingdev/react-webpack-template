@@ -2,7 +2,6 @@
  * @intro: webpack配置生产.
  */
 const path = require('path');
-const utils = require('./utils');
 const merge = require('webpack-merge').default;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const DotEnvWebpackPlugin = require('dotenv-webpack');
@@ -11,11 +10,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpackBaseConfig = require('./webpack.base.config');
+const utils = require('./utils');
 const config = require('./config');
+const pkg = require('../package.json');
 
 const resolve = (dir) => path.join(__dirname, '..', dir);
 
 const mode = process.env.NODE_MODE || process.env.NODE_ENV;
+
+const createZipPlugin = () => {
+  // https://github.com/erikdesjardins/zip-webpack-plugin
+  const ZipWebpackPlugin = require('zip-webpack-plugin');
+  return new ZipWebpackPlugin({
+    filename: `${pkg.name}_v${pkg.version}.zip`,
+  });
+};
 
 module.exports = merge(webpackBaseConfig, {
   mode: 'production',
@@ -71,7 +80,9 @@ module.exports = merge(webpackBaseConfig, {
       to: config.dev.assetsSubDirectory,
       ignore: ['.*'],
     }]),
-  ],
+    // https://github.com/erikdesjardins/zip-webpack-plugin
+    config.build.packagedIntoZip && createZipPlugin(),
+  ].filter(Boolean),
   optimization: {
     splitChunks: {
       cacheGroups: {

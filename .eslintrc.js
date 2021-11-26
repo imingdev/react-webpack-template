@@ -28,5 +28,10 @@ module.exports = {
     'jsx-a11y/alt-text': 0,
     'import/extensions': 0,
     'no-debugger': 1,
+    'import/no-extraneous-dependencies': 0,
+    'no-nested-ternary': 0,
+    'global-require': 0,
+    'no-tabs': 0,
+    camelcase: 0,
   },
 };

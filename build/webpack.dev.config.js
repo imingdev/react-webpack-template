@@ -1,7 +1,6 @@
 /**
  * @intro: webpack配置开发.
  */
-const utils = require('./utils');
 const webpack = require('webpack');
 const merge = require('webpack-merge').default;
 const path = require('path');
@@ -12,6 +11,7 @@ const portfinder = require('portfinder');
 const ip = require('ip');
 const DotEnvWebpackPlugin = require('dotenv-webpack');
 const baseWebpackConfig = require('./webpack.base.config');
+const utils = require('./utils');
 const config = require('./config');
 
 const devWebpackConfig = merge(baseWebpackConfig, {

@@ -18,6 +18,11 @@ const createEslintRule = () => {
   });
 };
 
+const createStylelintRule = () => {
+  const StylelintPlugin = require('stylelint-webpack-plugin');
+  return new StylelintPlugin();
+};
+
 module.exports = {
   context: resolve('/'),
   entry: {
@@ -46,7 +51,8 @@ module.exports = {
   },
   plugins: [
     new WebpackBarPlugin(),
-	config.dev.useEslint && createEslintRule(),
+    config.dev.useEslint && createEslintRule(),
+    config.dev.useStylelint && createStylelintRule(),
   ].filter(Boolean),
   performance: {
     hints: false,
