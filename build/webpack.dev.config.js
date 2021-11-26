@@ -10,6 +10,7 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const portfinder = require('portfinder');
 const ip = require('ip');
 const DotEnvWebpackPlugin = require('dotenv-webpack');
+const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const baseWebpackConfig = require('./webpack.base.config');
 const utils = require('./utils');
 const config = require('./config');
@@ -54,6 +55,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       defaults: '.env',
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshPlugin({
+      overlay: false,
+    }),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
